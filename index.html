@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamentos de CSS</title>
+    <style>
+        /* === ESTILOS GLOBALES (DARK MODE POR DEFECTO) === */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif; /* Fuente un poco más moderna para diseño */
+            background-color: #121212;
+            color: #cccccc;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .slideshow-container { position: relative; width: 90%; max-width: 960px; }
+        
+        .slide {
+            display: none;
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            height: 580px; /* Un poco más alto para explicar CSS */
+            padding: 40px 60px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            flex-direction: column; justify-content: center; position: relative;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .fade { animation-name: fade; animation-duration: 0.5s; }
+        @keyframes fade { from {opacity: .4} to {opacity: 1} }
+
+        .prev, .next {
+            cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+            width: 50px; height: 50px; background-color: #333; color: #f1f1f1;
+            border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex; justify-content: center; align-items: center;
+            font-weight: bold; font-size: 24px; transition: all 0.3s ease;
+            user-select: none; z-index: 10;
+        }
+        .prev:hover, .next:hover { background-color: #555; }
+        .prev { left: -70px; }
+        .next { right: -70px; }
+
+        /* Color de acento cambiado a Azul CSS (#264de4) */
+        .slide h1 { font-size: 3.5em; text-align: center; border-bottom: 4px solid #264de4; padding-bottom: 20px; color: #264de4; }
+        .slide h2 { font-size: 2.8em; margin: 0 0 30px; text-align: center; color: #264de4; }
+        
+        .single-content p { font-size: 1.3em; color: #cccccc; text-align: center; margin-bottom: 20px; line-height: 1.5; }
+        
+        pre { width: 90%; max-width: 700px; margin: 0 auto; background-color: #2b2b2b; color: #f1f1f1; padding: 15px; border-radius: 5px; font-size: 1.1em; white-space: pre-wrap; border: 1px solid #444; text-align: left; }
+        
+        /* Sintaxis básica de colores para el código (simulado) */
+        code { font-family: 'Courier New', Courier, monospace; }
+
+        .footer { position: absolute; bottom: 20px; right: 40px; font-size: 1em; color: #888; }
+
+        .subtitle { color: #e0e0e0; font-size: 2em; font-weight: bold; margin: 0 0 30px; text-align: center; }
+        
+        /* === ESTILOS DEL SWITCH DE TEMA === */
+        .theme-switch-wrapper { position: fixed; top: 15px; right: 15px; z-index: 100; }
+        #theme-switch {
+            cursor: pointer; padding: 8px 12px; border-radius: 20px;
+            border: 1px solid #555; background-color: #333; color: #f1f1f1;
+            font-size: 0.9em; transition: all 0.3s ease;
+        }
+        #theme-switch:hover { background-color: #555; }
+
+        /* === ESTILOS DEL LIGHT MODE === */
+        body.light-mode { background-color: #f0f0f0; color: #333; }
+        body.light-mode .slide { background-color: #fff; border-color: #ccc; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        body.light-mode .slide h1 { color: #264de4; border-color: #264de4; }
+        body.light-mode .slide h2 { color: #264de4; }
+        body.light-mode .subtitle { color: #333; }
+        body.light-mode .single-content p { color: #444; }
+        body.light-mode pre { background-color: #e3e8e8; border-color: transparent; color: #1e1e1e; }
+        body.light-mode .prev, body.light-mode .next { background-color: #cccccc; color: #333; }
+        body.light-mode .prev:hover, body.light-mode .next:hover { background-color: #aaaaaa; }
+        body.light-mode #theme-switch { background-color: #fff; color: #333; border-color: #ccc; }
+        body.light-mode #theme-switch:hover { background-color: #eee; }
+
+        /* === MEDIA QUERIES === */
+        @media screen and (max-width: 768px) {
+            body { padding: 15px; }
+            .slideshow-container { width: 100%; padding-bottom: 75px; }
+            .slide { height: auto; min-height: 75vh; padding: 20px 25px; }
+            .prev, .next { top: auto; bottom: 15px; width: 45px; height: 45px; }
+            .prev { left: 50%; transform: translateX(-110%); }
+            .next { left: 50%; transform: translateX(10%); right: auto; }
+            .slide h1 { font-size: 2.2em; }
+            .slide h2 { font-size: 1.8em; }
+            .single-content p { font-size: 1.1em; }
+            pre { font-size: 0.9em; }
+            .footer { font-size: 0.8em; right: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="theme-switch-wrapper">
+        <button id="theme-switch">Light Mode</button>
+    </div>
+
+    <div class="slideshow-container">
+        
+        <!-- =============================================================== -->
+        <!-- INICIO DEL CONTENIDO DE LAS DIAPOSITIVAS -->
+        <!-- =============================================================== -->
+
+        <div class="slide fade">
+            <h1>Cheat Sheet de CSS</h1>
+            <div class="subtitle">Sintaxis Básica</div>
+            <div class="footer">1 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>¿Qué es CSS?</h2>
+            <div class="single-content">
+                <p>CSS (Hojas de Estilo en Cascada) describe <strong>cómo</strong> se deben mostrar los elementos HTML en la pantalla o papel.</p>
+                <pre><code>/* HTML es la estructura (el esqueleto).
+   CSS es el estilo (la ropa y el maquillaje). */
+
+/* Sin CSS, la web sería solo texto plano en blanco y negro. */</code></pre>
+            </div>
+            <div class="footer">2 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Anatomía de una Regla CSS</h2>
+            <div class="single-content">
+                <p>Una regla CSS se compone de un <strong>Selector</strong> y un <strong>Bloque de Declaración</strong>.</p>
+                <pre><code>selector {
+  propiedad: valor;
+}
+
+/* Ejemplo real */
+h1 {
+  color: blue;
+  font-size: 24px;
+}</code></pre>
+            </div>
+            <div class="footer">3 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>1. El Selector</h2>
+            <div class="single-content">
+                <p>Indica al navegador <strong>a qué</strong> elemento HTML queremos aplicar los estilos. Existen varios tipos.</p>
+                <pre><code>/* Selector de Etiqueta */
+p {
+  color: red; /* Aplica a TODOS los párrafos &lt;p&gt; */
+}
+
+/* Selector Universal */
+* {
+  margin: 0; /* Aplica a TODOS los elementos de la página */
+}</code></pre>
+            </div>
+            <div class="footer">4 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Selector de Clase (.)</h2>
+            <div class="single-content">
+                <p>Es el más flexible y usado. Selecciona elementos que tengan un atributo <code>class</code> específico. Se usa un punto <code>.</code>.</p>
+                <pre><code>/* En CSS */
+.boton-alerta {
+  background-color: orange;
+  font-weight: bold;
+}
+
+/* En HTML coincidiría con:
+   &lt;button class="boton-alerta"&gt;Cuidado&lt;/button&gt; */</code></pre>
+            </div>
+            <div class="footer">5 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Selector de ID (#)</h2>
+            <div class="single-content">
+                <p>Selecciona un elemento único. Un ID no debe repetirse en la misma página. Se usa una almohadilla <code>#</code>.</p>
+                <pre><code>/* En CSS */
+#cabecera-principal {
+  height: 100px;
+}
+
+/* En HTML coincidiría con:
+   &lt;header id="cabecera-principal"&gt;...&lt;/header&gt; */</code></pre>
+            </div>
+            <div class="footer">6 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Agrupación de Selectores</h2>
+            <div class="single-content">
+                <p>Si varios elementos comparten el mismo estilo, puedes separarlos por comas para ahorrar código.</p>
+                <pre><code>/* En lugar de escribir reglas separadas... */
+h1, h2, p {
+  font-family: "Arial", sans-serif;
+  color: #333;
+}
+
+/* La regla se aplica a los h1, a los h2 Y a los párrafos. */</code></pre>
+            </div>
+            <div class="footer">7 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>2. El Bloque de Declaración</h2>
+            <div class="single-content">
+                <p>Va entre llaves <code>{ }</code>. Contiene una o más declaraciones separadas por punto y coma <code>;</code>.</p>
+                <pre><code>body {
+  /* Declaración 1 */
+  background-color: white; 
+
+  /* Declaración 2 */
+  color: black; 
+}
+/* ¡No olvides el punto y coma al final de cada línea! */</code></pre>
+            </div>
+            <div class="footer">8 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Propiedades y Valores</h2>
+            <div class="single-content">
+                <p>La <strong>propiedad</strong> es el aspecto que quieres cambiar. El <strong>valor</strong> es el ajuste específico que aplicas.</p>
+                <pre><code>p {
+  /* Propiedad: color | Valor: red */
+  color: red;
+
+  /* Propiedad: text-align | Valor: center */
+  text-align: center;
+}</code></pre>
+            </div>
+            <div class="footer">9 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Comentarios en CSS</h2>
+            <div class="single-content">
+                <p>Se usan para explicar el código y son ignorados por el navegador. A diferencia de HTML, en CSS solo existe un tipo de comentario de bloque.</p>
+                <pre><code>/* Esto es un comentario de una línea */
+
+p {
+  color: blue; /* Este comentario está al final de la línea */
+}
+
+/* 
+   Este es un comentario
+   de múltiples líneas
+*/</code></pre>
+            </div>
+            <div class="footer">10 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Colores en CSS</h2>
+            <div class="single-content">
+                <p>Hay tres formas principales de definir colores.</p>
+                <pre><code>div {
+  /* 1. Palabras clave (Keywords) */
+  color: red; 
+
+  /* 2. Hexadecimal (Muy común) */
+  background-color: #ff0000; 
+
+  /* 3. RGB (Red, Green, Blue) */
+  border-color: rgb(255, 0, 0);
+}</code></pre>
+            </div>
+            <div class="footer">11 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>El Modelo de Caja (Box Model)</h2>
+            <div class="single-content">
+                <p>¡Concepto Crítico! En CSS, <strong>todo</strong> elemento HTML es una caja rectangular.</p>
+                <pre><code>.caja {
+  width: 300px;   /* Ancho del contenido */
+  padding: 20px;  /* Espacio INTERNO (relleno) */
+  border: 5px solid black; /* El borde */
+  margin: 50px;   /* Espacio EXTERNO (separación) */
+}</code></pre>
+            </div>
+            <div class="footer">12 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Padding vs Margin</h2>
+            <div class="single-content">
+                <p>La confusión más común al empezar.</p>
+                <pre><code>/* PADDING (Relleno) */
+/* Es espacio DENTRO de la caja. 
+   Si la caja tiene color de fondo, el padding se pinta. */
+padding: 20px;
+
+/* MARGIN (Margen) */
+/* Es espacio FUERA de la caja.
+   Empuja a otros elementos lejos. Es invisible. */
+margin: 20px;</code></pre>
+            </div>
+            <div class="footer">13 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Propiedades de Texto</h2>
+            <div class="single-content">
+                <p>Controlan la tipografía y legibilidad.</p>
+                <pre><code>p {
+  font-family: "Helvetica", Arial, sans-serif; /* Tipo de letra */
+  font-size: 16px;      /* Tamaño */
+  font-weight: bold;    /* Grosor (negrita) */
+  line-height: 1.5;     /* Altura de línea (espaciado vertical) */
+  text-decoration: none; /* Quitar subrayado a enlaces */
+}</code></pre>
+            </div>
+            <div class="footer">14 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Unidades de Medida: Absolutas</h2>
+            <div class="single-content">
+                <p>Son fijas y no cambian según el tamaño de pantalla o configuración.</p>
+                <pre><code>h1 {
+  font-size: 32px; /* Pixeles */
+}
+
+/* Los pixeles son precisos, pero no siempre
+   son la mejor opción para webs responsivas
+   o accesibles. */</code></pre>
+            </div>
+            <div class="footer">15 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Unidades de Medida: Relativas</h2>
+            <div class="single-content">
+                <p>Se adaptan en relación a otros valores. Son esenciales para el diseño moderno.</p>
+                <pre><code>div {
+  width: 50%; /* Ocupa la mitad de su padre */
+}
+
+p {
+  font-size: 1.2rem; /* 1.2 veces el tamaño base del HTML */
+  margin-bottom: 2em; /* 2 veces el tamaño de fuente actual */
+}</code></pre>
+            </div>
+            <div class="footer">16 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>La Cascada (Cascading)</h2>
+            <div class="single-content">
+                <p>Significa que el orden importa. Si hay dos reglas iguales, gana la última.</p>
+                <pre><code>p {
+  color: red;
+}
+
+/* Esta regla está después, así que "gana" */
+p {
+  color: blue;
+}
+
+/* Resultado: Los párrafos serán AZULES */</code></pre>
+            </div>
+            <div class="footer">17 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Especificidad (El peso)</h2>
+            <div class="single-content">
+                <p>No todos los selectores valen lo mismo. Un ID pesa más que una Clase, y una Clase más que una Etiqueta.</p>
+                <pre><code>/* Pesa poco (Etiqueta) */
+p { color: red; } 
+
+/* Pesa más (Clase) - GANADOR */
+.mi-texto { color: green; }
+
+/* Aunque 'p' esté después, la clase es más específica
+   y el texto será VERDE. */</code></pre>
+            </div>
+            <div class="footer">18 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>¿Cómo añadir CSS a HTML?</h2>
+            <div class="single-content">
+                <p>La mejor forma es usar un archivo externo (<code>.css</code>).</p>
+                <pre><code>&lt;!-- En el &lt;head&gt; de tu HTML --&gt;
+
+&lt;link rel="stylesheet" href="estilos.css"&gt;
+
+&lt;!-- Esto mantiene el HTML limpio y permite
+     usar los mismos estilos en varias páginas. --&gt;</code></pre>
+            </div>
+            <div class="footer">19 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Siguientes Pasos</h2>
+            <div class="single-content">
+                <p>Ya conoces la sintaxis. Ahora toca estructurar diseños complejos.</p>
+                <pre><code>// Hoja de ruta de aprendizaje:
+- Flexbox (para diseños unidimensionales)
+- CSS Grid (para diseños bidimensionales)
+- Media Queries (para diseño Responsivo/Móvil)
+- Variables CSS (Custom Properties)
+- Animaciones y Transiciones</code></pre>
+            </div>
+            <div class="footer">20 / 20</div>
+        </div>
+
+        <!-- =============================================================== -->
+        <!-- FIN DEL CONTENIDO DE LAS DIAPOSITIVAS -->
+        <!-- =============================================================== -->
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <!-- Lógica de JavaScript (Reutilizada y Optimizada) -->
+    <script>
+        // --- Lógica de la presentación ---
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            if (n > slides.length) { slideIndex = 1 } 
+            if (n < 1) { slideIndex = slides.length }
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            
+            slides[slideIndex - 1].style.display = "flex";
+        }
+
+        // --- Lógica del cambio de tema (Light/Dark Mode) ---
+        const themeSwitch = document.getElementById('theme-switch');
+        const body = document.body;
+
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                body.classList.add('light-mode');
+                themeSwitch.textContent = 'Dark Mode';
+            } else {
+                body.classList.remove('light-mode');
+                themeSwitch.textContent = 'Light Mode';
+            }
+        }
+
+        themeSwitch.addEventListener('click', () => {
+            let currentTheme = body.classList.contains('light-mode') ? 'light' : 'dark';
+            let newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark'; // Dark mode por defecto
+            applyTheme(savedTheme);
+        });
+
+        // --- Lógica para navegar con flechas del teclado ---
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                plusSlides(-1);
+            } else if (event.key === 'ArrowRight') {
+                plusSlides(1);
+            }
+        });
+    </script>
+
+</body>
+</html>
