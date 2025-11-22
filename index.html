@@ -7,9 +7,9 @@
     <style>
         /* === ESTILOS GLOBALES (DARK MODE POR DEFECTO) === */
         body {
-            font-family: 'Segoe UI', Arial, sans-serif; /* Fuente un poco más moderna para diseño */
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: #121212;
-            color: #cccccc;
+            color: #e0e0e0;
             margin: 0;
             padding: 40px;
             display: flex;
@@ -26,7 +26,7 @@
             display: none;
             background-color: #1e1e1e;
             border: 1px solid #333;
-            height: 580px; /* Un poco más alto para explicar CSS */
+            height: 600px; /* Un poco más alto para acomodar código explicado */
             padding: 40px 60px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             flex-direction: column; justify-content: center; position: relative;
@@ -49,22 +49,36 @@
         .prev { left: -70px; }
         .next { right: -70px; }
 
-        /* Color de acento cambiado a Azul CSS (#264de4) */
-        .slide h1 { font-size: 3.5em; text-align: center; border-bottom: 4px solid #264de4; padding-bottom: 20px; color: #264de4; }
-        .slide h2 { font-size: 2.8em; margin: 0 0 30px; text-align: center; color: #264de4; }
+        /* === COLOR DE ACENTO: AZUL CLARO (#4fc3f7) === */
+        .slide h1 { 
+            font-size: 3.5em; 
+            text-align: center; 
+            border-bottom: 4px solid #4fc3f7; 
+            padding-bottom: 20px; 
+            color: #4fc3f7; 
+        }
+        .slide h2 { 
+            font-size: 2.6em; 
+            margin: 0 0 30px; 
+            text-align: center; 
+            color: #4fc3f7; 
+        }
         
-        .single-content p { font-size: 1.3em; color: #cccccc; text-align: center; margin-bottom: 20px; line-height: 1.5; }
+        .single-content p { font-size: 1.3em; color: #cccccc; text-align: center; margin-bottom: 20px; line-height: 1.6; }
         
-        pre { width: 90%; max-width: 700px; margin: 0 auto; background-color: #2b2b2b; color: #f1f1f1; padding: 15px; border-radius: 5px; font-size: 1.1em; white-space: pre-wrap; border: 1px solid #444; text-align: left; }
+        /* Estilos de Bloque de Código mejorados */
+        pre { width: 90%; max-width: 750px; margin: 0 auto; background-color: #263238; color: #eceff1; padding: 20px; border-radius: 8px; font-size: 1.1em; white-space: pre-wrap; border: 1px solid #37474f; text-align: left; box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); }
         
-        /* Sintaxis básica de colores para el código (simulado) */
-        code { font-family: 'Courier New', Courier, monospace; }
+        code { font-family: 'Consolas', 'Monaco', monospace; color: #80cbc4; }
+        .comment { color: #78909c; font-style: italic; }
+        .prop { color: #c792ea; } /* Lila */
+        .val { color: #c3e88d; }  /* Verde claro */
+        .sel { color: #ffcb6b; }  /* Amarillo para selectores */
 
         .footer { position: absolute; bottom: 20px; right: 40px; font-size: 1em; color: #888; }
-
-        .subtitle { color: #e0e0e0; font-size: 2em; font-weight: bold; margin: 0 0 30px; text-align: center; }
+        .subtitle { color: #b0bec5; font-size: 1.8em; font-weight: 300; margin: 0 0 30px; text-align: center; letter-spacing: 1px; }
         
-        /* === ESTILOS DEL SWITCH DE TEMA === */
+        /* === SWITCH TEMA === */
         .theme-switch-wrapper { position: fixed; top: 15px; right: 15px; z-index: 100; }
         #theme-switch {
             cursor: pointer; padding: 8px 12px; border-radius: 20px;
@@ -73,20 +87,28 @@
         }
         #theme-switch:hover { background-color: #555; }
 
-        /* === ESTILOS DEL LIGHT MODE === */
-        body.light-mode { background-color: #f0f0f0; color: #333; }
-        body.light-mode .slide { background-color: #fff; border-color: #ccc; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        body.light-mode .slide h1 { color: #264de4; border-color: #264de4; }
-        body.light-mode .slide h2 { color: #264de4; }
-        body.light-mode .subtitle { color: #333; }
-        body.light-mode .single-content p { color: #444; }
-        body.light-mode pre { background-color: #e3e8e8; border-color: transparent; color: #1e1e1e; }
-        body.light-mode .prev, body.light-mode .next { background-color: #cccccc; color: #333; }
-        body.light-mode .prev:hover, body.light-mode .next:hover { background-color: #aaaaaa; }
+        /* === LIGHT MODE === */
+        body.light-mode { background-color: #f5f7fa; color: #333; }
+        body.light-mode .slide { background-color: #fff; border-color: #d1d9e6; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        
+        /* Azul vibrante para modo claro (#0288d1) */
+        body.light-mode .slide h1 { color: #0288d1; border-color: #0288d1; }
+        body.light-mode .slide h2 { color: #0288d1; }
+        
+        body.light-mode .subtitle { color: #546e7a; }
+        body.light-mode .single-content p { color: #455a64; }
+        body.light-mode pre { background-color: #eceff1; border-color: #cfd8dc; color: #263238; }
+        body.light-mode code { color: #00695c; }
+        body.light-mode .comment { color: #90a4ae; }
+        body.light-mode .prop { color: #7b1fa2; }
+        body.light-mode .val { color: #2e7d32; }
+        body.light-mode .sel { color: #d84315; } /* Naranja oscuro para selectores en light mode */
+
+        body.light-mode .prev, body.light-mode .next { background-color: #e0e0e0; color: #333; }
+        body.light-mode .prev:hover, body.light-mode .next:hover { background-color: #bdbdbd; }
         body.light-mode #theme-switch { background-color: #fff; color: #333; border-color: #ccc; }
         body.light-mode #theme-switch:hover { background-color: #eee; }
 
-        /* === MEDIA QUERIES === */
         @media screen and (max-width: 768px) {
             body { padding: 15px; }
             .slideshow-container { width: 100%; padding-bottom: 75px; }
@@ -111,7 +133,7 @@
     <div class="slideshow-container">
         
         <!-- =============================================================== -->
-        <!-- INICIO DEL CONTENIDO DE LAS DIAPOSITIVAS -->
+        <!-- CONTENIDO ACTUALIZADO AL NUEVO DISEÑO -->
         <!-- =============================================================== -->
 
         <div class="slide fade">
@@ -123,11 +145,12 @@
         <div class="slide fade">
             <h2>¿Qué es CSS?</h2>
             <div class="single-content">
-                <p>CSS (Hojas de Estilo en Cascada) describe <strong>cómo</strong> se deben mostrar los elementos HTML en la pantalla o papel.</p>
-                <pre><code>/* HTML es la estructura (el esqueleto).
-   CSS es el estilo (la ropa y el maquillaje). */
+                <p>CSS describe <strong>cómo</strong> se deben mostrar los elementos HTML en la pantalla.</p>
+                <pre><code><span class="comment">/* HTML es la estructura (el esqueleto).
+   CSS es el estilo (la ropa y el maquillaje). */</span>
 
-/* Sin CSS, la web sería solo texto plano en blanco y negro. */</code></pre>
+<span class="comment">/* Sin CSS, la web sería solo texto plano 
+   en blanco y negro. */</span></code></pre>
             </div>
             <div class="footer">2 / 20</div>
         </div>
@@ -136,14 +159,14 @@
             <h2>Anatomía de una Regla CSS</h2>
             <div class="single-content">
                 <p>Una regla CSS se compone de un <strong>Selector</strong> y un <strong>Bloque de Declaración</strong>.</p>
-                <pre><code>selector {
-  propiedad: valor;
+                <pre><code><span class="sel">selector</span> {
+  <span class="prop">propiedad</span>: <span class="val">valor</span>;
 }
 
-/* Ejemplo real */
-h1 {
-  color: blue;
-  font-size: 24px;
+<span class="comment">/* Ejemplo real */</span>
+<span class="sel">h1</span> {
+  <span class="prop">color</span>: <span class="val">blue</span>;
+  <span class="prop">font-size</span>: <span class="val">24px</span>;
 }</code></pre>
             </div>
             <div class="footer">3 / 20</div>
@@ -152,15 +175,15 @@ h1 {
         <div class="slide fade">
             <h2>1. El Selector</h2>
             <div class="single-content">
-                <p>Indica al navegador <strong>a qué</strong> elemento HTML queremos aplicar los estilos. Existen varios tipos.</p>
-                <pre><code>/* Selector de Etiqueta */
-p {
-  color: red; /* Aplica a TODOS los párrafos &lt;p&gt; */
+                <p>Indica al navegador <strong>a qué</strong> elemento HTML queremos aplicar los estilos.</p>
+                <pre><code><span class="comment">/* Selector de Etiqueta */</span>
+<span class="sel">p</span> {
+  <span class="prop">color</span>: <span class="val">red</span>; <span class="comment">/* Aplica a TODOS los párrafos &lt;p&gt; */</span>
 }
 
-/* Selector Universal */
-* {
-  margin: 0; /* Aplica a TODOS los elementos de la página */
+<span class="comment">/* Selector Universal */</span>
+<span class="sel">*</span> {
+  <span class="prop">margin</span>: <span class="val">0</span>; <span class="comment">/* Aplica a TODO */</span>
 }</code></pre>
             </div>
             <div class="footer">4 / 20</div>
@@ -169,15 +192,15 @@ p {
         <div class="slide fade">
             <h2>Selector de Clase (.)</h2>
             <div class="single-content">
-                <p>Es el más flexible y usado. Selecciona elementos que tengan un atributo <code>class</code> específico. Se usa un punto <code>.</code>.</p>
-                <pre><code>/* En CSS */
-.boton-alerta {
-  background-color: orange;
-  font-weight: bold;
+                <p>Selecciona elementos con un atributo <code>class</code> específico. Se usa un punto.</p>
+                <pre><code><span class="comment">/* En CSS */</span>
+<span class="sel">.boton-alerta</span> {
+  <span class="prop">background-color</span>: <span class="val">orange</span>;
+  <span class="prop">font-weight</span>: <span class="val">bold</span>;
 }
 
-/* En HTML coincidiría con:
-   &lt;button class="boton-alerta"&gt;Cuidado&lt;/button&gt; */</code></pre>
+<span class="comment">/* En HTML:
+   &lt;button class="boton-alerta"&gt;Cuidado&lt;/button&gt; */</span></code></pre>
             </div>
             <div class="footer">5 / 20</div>
         </div>
@@ -185,14 +208,14 @@ p {
         <div class="slide fade">
             <h2>Selector de ID (#)</h2>
             <div class="single-content">
-                <p>Selecciona un elemento único. Un ID no debe repetirse en la misma página. Se usa una almohadilla <code>#</code>.</p>
-                <pre><code>/* En CSS */
-#cabecera-principal {
-  height: 100px;
+                <p>Selecciona un elemento único. Se usa una almohadilla <code>#</code>.</p>
+                <pre><code><span class="comment">/* En CSS */</span>
+<span class="sel">#cabecera-principal</span> {
+  <span class="prop">height</span>: <span class="val">100px</span>;
 }
 
-/* En HTML coincidiría con:
-   &lt;header id="cabecera-principal"&gt;...&lt;/header&gt; */</code></pre>
+<span class="comment">/* En HTML:
+   &lt;header id="cabecera-principal"&gt;...&lt;/header&gt; */</span></code></pre>
             </div>
             <div class="footer">6 / 20</div>
         </div>
@@ -200,14 +223,12 @@ p {
         <div class="slide fade">
             <h2>Agrupación de Selectores</h2>
             <div class="single-content">
-                <p>Si varios elementos comparten el mismo estilo, puedes separarlos por comas para ahorrar código.</p>
-                <pre><code>/* En lugar de escribir reglas separadas... */
-h1, h2, p {
-  font-family: "Arial", sans-serif;
-  color: #333;
-}
-
-/* La regla se aplica a los h1, a los h2 Y a los párrafos. */</code></pre>
+                <p>Si varios elementos comparten el mismo estilo, sepáralos por comas.</p>
+                <pre><code><span class="comment">/* Aplica a h1, h2 Y párrafos */</span>
+<span class="sel">h1, h2, p</span> {
+  <span class="prop">font-family</span>: <span class="val">"Arial", sans-serif</span>;
+  <span class="prop">color</span>: <span class="val">#333</span>;
+}</code></pre>
             </div>
             <div class="footer">7 / 20</div>
         </div>
@@ -215,15 +236,14 @@ h1, h2, p {
         <div class="slide fade">
             <h2>2. El Bloque de Declaración</h2>
             <div class="single-content">
-                <p>Va entre llaves <code>{ }</code>. Contiene una o más declaraciones separadas por punto y coma <code>;</code>.</p>
-                <pre><code>body {
-  /* Declaración 1 */
-  background-color: white; 
+                <p>Va entre llaves <code>{ }</code>. ¡No olvides el punto y coma <code>;</code>!</p>
+                <pre><code><span class="sel">body</span> {
+  <span class="comment">/* Declaración 1 */</span>
+  <span class="prop">background-color</span>: <span class="val">white</span>; 
 
-  /* Declaración 2 */
-  color: black; 
-}
-/* ¡No olvides el punto y coma al final de cada línea! */</code></pre>
+  <span class="comment">/* Declaración 2 */</span>
+  <span class="prop">color</span>: <span class="val">black</span>; 
+}</code></pre>
             </div>
             <div class="footer">8 / 20</div>
         </div>
@@ -231,13 +251,13 @@ h1, h2, p {
         <div class="slide fade">
             <h2>Propiedades y Valores</h2>
             <div class="single-content">
-                <p>La <strong>propiedad</strong> es el aspecto que quieres cambiar. El <strong>valor</strong> es el ajuste específico que aplicas.</p>
-                <pre><code>p {
-  /* Propiedad: color | Valor: red */
-  color: red;
+                <p>La <strong>propiedad</strong> es qué cambias, el <strong>valor</strong> es cómo lo cambias.</p>
+                <pre><code><span class="sel">p</span> {
+  <span class="comment">/* Propiedad: color | Valor: red */</span>
+  <span class="prop">color</span>: <span class="val">red</span>;
 
-  /* Propiedad: text-align | Valor: center */
-  text-align: center;
+  <span class="comment">/* Propiedad: text-align | Valor: center */</span>
+  <span class="prop">text-align</span>: <span class="val">center</span>;
 }</code></pre>
             </div>
             <div class="footer">9 / 20</div>
@@ -246,17 +266,17 @@ h1, h2, p {
         <div class="slide fade">
             <h2>Comentarios en CSS</h2>
             <div class="single-content">
-                <p>Se usan para explicar el código y son ignorados por el navegador. A diferencia de HTML, en CSS solo existe un tipo de comentario de bloque.</p>
-                <pre><code>/* Esto es un comentario de una línea */
+                <p>Ignorados por el navegador, útiles para humanos.</p>
+                <pre><code><span class="comment">/* Esto es un comentario de una línea */</span>
 
-p {
-  color: blue; /* Este comentario está al final de la línea */
+<span class="sel">p</span> {
+  <span class="prop">color</span>: <span class="val">blue</span>; <span class="comment">/* Comentario al final */</span>
 }
 
-/* 
+<span class="comment">/* 
    Este es un comentario
    de múltiples líneas
-*/</code></pre>
+*/</span></code></pre>
             </div>
             <div class="footer">10 / 20</div>
         </div>
@@ -264,16 +284,16 @@ p {
         <div class="slide fade">
             <h2>Colores en CSS</h2>
             <div class="single-content">
-                <p>Hay tres formas principales de definir colores.</p>
-                <pre><code>div {
-  /* 1. Palabras clave (Keywords) */
-  color: red; 
+                <p>Tres formas principales de definir colores.</p>
+                <pre><code><span class="sel">div</span> {
+  <span class="comment">/* Keywords */</span>
+  <span class="prop">color</span>: <span class="val">red</span>; 
 
-  /* 2. Hexadecimal (Muy común) */
-  background-color: #ff0000; 
+  <span class="comment">/* Hexadecimal (Común) */</span>
+  <span class="prop">background-color</span>: <span class="val">#ff0000</span>; 
 
-  /* 3. RGB (Red, Green, Blue) */
-  border-color: rgb(255, 0, 0);
+  <span class="comment">/* RGB */</span>
+  <span class="prop">border-color</span>: <span class="val">rgb(255, 0, 0)</span>;
 }</code></pre>
             </div>
             <div class="footer">11 / 20</div>
@@ -282,12 +302,12 @@ p {
         <div class="slide fade">
             <h2>El Modelo de Caja (Box Model)</h2>
             <div class="single-content">
-                <p>¡Concepto Crítico! En CSS, <strong>todo</strong> elemento HTML es una caja rectangular.</p>
-                <pre><code>.caja {
-  width: 300px;   /* Ancho del contenido */
-  padding: 20px;  /* Espacio INTERNO (relleno) */
-  border: 5px solid black; /* El borde */
-  margin: 50px;   /* Espacio EXTERNO (separación) */
+                <p>¡Concepto Crítico! Todo elemento HTML es una caja.</p>
+                <pre><code><span class="sel">.caja</span> {
+  <span class="prop">width</span>: <span class="val">300px</span>;   <span class="comment">/* Contenido */</span>
+  <span class="prop">padding</span>: <span class="val">20px</span>;  <span class="comment">/* Relleno interno */</span>
+  <span class="prop">border</span>: <span class="val">5px solid black</span>; <span class="comment">/* Borde */</span>
+  <span class="prop">margin</span>: <span class="val">50px</span>;   <span class="comment">/* Espacio externo */</span>
 }</code></pre>
             </div>
             <div class="footer">12 / 20</div>
@@ -296,16 +316,14 @@ p {
         <div class="slide fade">
             <h2>Padding vs Margin</h2>
             <div class="single-content">
-                <p>La confusión más común al empezar.</p>
-                <pre><code>/* PADDING (Relleno) */
-/* Es espacio DENTRO de la caja. 
-   Si la caja tiene color de fondo, el padding se pinta. */
-padding: 20px;
+                <p>Diferencia clave: Espacio interno vs Espacio externo.</p>
+                <pre><code><span class="comment">/* PADDING (Relleno) */</span>
+<span class="comment">/* DENTRO de la caja. Toma el color de fondo. */</span>
+<span class="prop">padding</span>: <span class="val">20px</span>;
 
-/* MARGIN (Margen) */
-/* Es espacio FUERA de la caja.
-   Empuja a otros elementos lejos. Es invisible. */
-margin: 20px;</code></pre>
+<span class="comment">/* MARGIN (Margen) */</span>
+<span class="comment">/* FUERA de la caja. Es invisible y empuja elementos. */</span>
+<span class="prop">margin</span>: <span class="val">20px</span>;</code></pre>
             </div>
             <div class="footer">13 / 20</div>
         </div>
@@ -313,13 +331,13 @@ margin: 20px;</code></pre>
         <div class="slide fade">
             <h2>Propiedades de Texto</h2>
             <div class="single-content">
-                <p>Controlan la tipografía y legibilidad.</p>
-                <pre><code>p {
-  font-family: "Helvetica", Arial, sans-serif; /* Tipo de letra */
-  font-size: 16px;      /* Tamaño */
-  font-weight: bold;    /* Grosor (negrita) */
-  line-height: 1.5;     /* Altura de línea (espaciado vertical) */
-  text-decoration: none; /* Quitar subrayado a enlaces */
+                <p>Control básico de tipografía.</p>
+                <pre><code><span class="sel">p</span> {
+  <span class="prop">font-family</span>: <span class="val">"Helvetica", sans-serif</span>;
+  <span class="prop">font-size</span>: <span class="val">16px</span>;
+  <span class="prop">font-weight</span>: <span class="val">bold</span>;
+  <span class="prop">line-height</span>: <span class="val">1.5</span>;
+  <span class="prop">text-decoration</span>: <span class="val">none</span>;
 }</code></pre>
             </div>
             <div class="footer">14 / 20</div>
@@ -328,14 +346,12 @@ margin: 20px;</code></pre>
         <div class="slide fade">
             <h2>Unidades de Medida: Absolutas</h2>
             <div class="single-content">
-                <p>Son fijas y no cambian según el tamaño de pantalla o configuración.</p>
-                <pre><code>h1 {
-  font-size: 32px; /* Pixeles */
+                <p>Son fijas. Los pixeles (px) son los más comunes.</p>
+                <pre><code><span class="sel">h1</span> {
+  <span class="prop">font-size</span>: <span class="val">32px</span>;
 }
 
-/* Los pixeles son precisos, pero no siempre
-   son la mejor opción para webs responsivas
-   o accesibles. */</code></pre>
+<span class="comment">/* Preciso, pero no siempre responsivo. */</span></code></pre>
             </div>
             <div class="footer">15 / 20</div>
         </div>
@@ -343,14 +359,14 @@ margin: 20px;</code></pre>
         <div class="slide fade">
             <h2>Unidades de Medida: Relativas</h2>
             <div class="single-content">
-                <p>Se adaptan en relación a otros valores. Son esenciales para el diseño moderno.</p>
-                <pre><code>div {
-  width: 50%; /* Ocupa la mitad de su padre */
+                <p>Se adaptan. Esenciales para diseño moderno.</p>
+                <pre><code><span class="sel">div</span> {
+  <span class="prop">width</span>: <span class="val">50%</span>; <span class="comment">/* Mitad del padre */</span>
 }
 
-p {
-  font-size: 1.2rem; /* 1.2 veces el tamaño base del HTML */
-  margin-bottom: 2em; /* 2 veces el tamaño de fuente actual */
+<span class="sel">p</span> {
+  <span class="prop">font-size</span>: <span class="val">1.2rem</span>; <span class="comment">/* Basado en HTML root */</span>
+  <span class="prop">margin-bottom</span>: <span class="val">2em</span>; <span class="comment">/* Basado en fuente actual */</span>
 }</code></pre>
             </div>
             <div class="footer">16 / 20</div>
@@ -359,17 +375,13 @@ p {
         <div class="slide fade">
             <h2>La Cascada (Cascading)</h2>
             <div class="single-content">
-                <p>Significa que el orden importa. Si hay dos reglas iguales, gana la última.</p>
-                <pre><code>p {
-  color: red;
-}
+                <p>El orden importa. La última regla leída gana.</p>
+                <pre><code><span class="sel">p</span> { <span class="prop">color</span>: <span class="val">red</span>; }
 
-/* Esta regla está después, así que "gana" */
-p {
-  color: blue;
-}
+<span class="comment">/* Esta regla está después, así que "gana" */</span>
+<span class="sel">p</span> { <span class="prop">color</span>: <span class="val">blue</span>; }
 
-/* Resultado: Los párrafos serán AZULES */</code></pre>
+<span class="comment">/* Resultado: Azul */</span></code></pre>
             </div>
             <div class="footer">17 / 20</div>
         </div>
@@ -377,15 +389,14 @@ p {
         <div class="slide fade">
             <h2>Especificidad (El peso)</h2>
             <div class="single-content">
-                <p>No todos los selectores valen lo mismo. Un ID pesa más que una Clase, y una Clase más que una Etiqueta.</p>
-                <pre><code>/* Pesa poco (Etiqueta) */
-p { color: red; } 
+                <p>ID > Clase > Etiqueta.</p>
+                <pre><code><span class="comment">/* Pesa poco (Etiqueta) */</span>
+<span class="sel">p</span> { <span class="prop">color</span>: <span class="val">red</span>; } 
 
-/* Pesa más (Clase) - GANADOR */
-.mi-texto { color: green; }
+<span class="comment">/* Pesa más (Clase) - GANADOR */</span>
+<span class="sel">.mi-texto</span> { <span class="prop">color</span>: <span class="val">green</span>; }
 
-/* Aunque 'p' esté después, la clase es más específica
-   y el texto será VERDE. */</code></pre>
+<span class="comment">/* El texto será VERDE aunque p esté antes. */</span></code></pre>
             </div>
             <div class="footer">18 / 20</div>
         </div>
@@ -393,13 +404,12 @@ p { color: red; }
         <div class="slide fade">
             <h2>¿Cómo añadir CSS a HTML?</h2>
             <div class="single-content">
-                <p>La mejor forma es usar un archivo externo (<code>.css</code>).</p>
-                <pre><code>&lt;!-- En el &lt;head&gt; de tu HTML --&gt;
+                <p>Usa un archivo externo con <code>&lt;link&gt;</code>.</p>
+                <pre><code><span class="comment">&lt;!-- En el &lt;head&gt; de tu HTML --&gt;</span>
 
 &lt;link rel="stylesheet" href="estilos.css"&gt;
 
-&lt;!-- Esto mantiene el HTML limpio y permite
-     usar los mismos estilos en varias páginas. --&gt;</code></pre>
+<span class="comment">&lt;!-- Mantiene el código limpio y reutilizable. --&gt;</span></code></pre>
             </div>
             <div class="footer">19 / 20</div>
         </div>
@@ -407,28 +417,25 @@ p { color: red; }
         <div class="slide fade">
             <h2>Siguientes Pasos</h2>
             <div class="single-content">
-                <p>Ya conoces la sintaxis. Ahora toca estructurar diseños complejos.</p>
-                <pre><code>// Hoja de ruta de aprendizaje:
-- Flexbox (para diseños unidimensionales)
-- CSS Grid (para diseños bidimensionales)
-- Media Queries (para diseño Responsivo/Móvil)
-- Variables CSS (Custom Properties)
-- Animaciones y Transiciones</code></pre>
+                <p>Ya tienes la sintaxis básica. ¿Qué sigue?</p>
+                <pre><code><span class="comment">// Hoja de ruta:</span>
+- Flexbox & Grid (Layouts)
+- Media Queries (Responsive Design)
+- Variables CSS
+- Animaciones</code></pre>
             </div>
             <div class="footer">20 / 20</div>
         </div>
 
         <!-- =============================================================== -->
-        <!-- FIN DEL CONTENIDO DE LAS DIAPOSITIVAS -->
+        <!-- FIN DEL CONTENIDO -->
         <!-- =============================================================== -->
 
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
         <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
 
-    <!-- Lógica de JavaScript (Reutilizada y Optimizada) -->
     <script>
-        // --- Lógica de la presentación ---
         let slideIndex = 1;
         showSlides(slideIndex);
 
@@ -441,15 +448,12 @@ p { color: red; }
             let slides = document.getElementsByClassName("slide");
             if (n > slides.length) { slideIndex = 1 } 
             if (n < 1) { slideIndex = slides.length }
-            
             for (i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none";
             }
-            
             slides[slideIndex - 1].style.display = "flex";
         }
 
-        // --- Lógica del cambio de tema (Light/Dark Mode) ---
         const themeSwitch = document.getElementById('theme-switch');
         const body = document.body;
 
@@ -466,23 +470,18 @@ p { color: red; }
         themeSwitch.addEventListener('click', () => {
             let currentTheme = body.classList.contains('light-mode') ? 'light' : 'dark';
             let newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
             applyTheme(newTheme);
             localStorage.setItem('theme', newTheme);
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'dark'; // Dark mode por defecto
+            const savedTheme = localStorage.getItem('theme') || 'dark'; 
             applyTheme(savedTheme);
         });
 
-        // --- Lógica para navegar con flechas del teclado ---
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowLeft') {
-                plusSlides(-1);
-            } else if (event.key === 'ArrowRight') {
-                plusSlides(1);
-            }
+            if (event.key === 'ArrowLeft') { plusSlides(-1); } 
+            else if (event.key === 'ArrowRight') { plusSlides(1); }
         });
     </script>
 
